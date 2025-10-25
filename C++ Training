@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    double thrust = 0.0;  // Thrust level in percentage
+    double fuel = 100.0;  // Fuel in percentage
+    double altitude = 0.0;  // Altitude in kilometers
+    char command;
+
+    cout << "Space Shuttle Control Simulation\n";
+    cout << "Commands: [i] Increase Thrust | [d] Decrease Thrust | [f] Burn Fuel | [q] Quit\n";
+
+    while (true) {
+        cout << "\nCurrent Thrust: " << thrust << "% | Fuel: " << fuel << "% | Altitude: " << altitude << " km\n";
+        cout << "Enter Command: ";
+        cin >> command;
+
+        if (command == 'i') {
+            if (fuel > 0) {
+                thrust += 10;
+                if (thrust > 100) thrust = 100;
+            } else {
+                cout << "Not enough fuel to increase thrust.\n";
+            }
+        } 
+        else if (command == 'd') {
+            thrust -= 10;
+            if (thrust < 0) thrust = 0;
+        } 
+        else if (command == 'f') {
+            if (thrust > 0 && fuel > 0) {
+                fuel -= 10;
+                altitude += thrust * 0.1;  // Altitude gain is proportional to thrust
+                if (fuel < 0) fuel = 0;
+            } else {
+                cout << "Not enough fuel or thrust to burn.\n";
+            }
+        } 
+        else if (command == 'q') {
+            cout << "Shutting down engines...\n";
+            break;
+        } 
+        else {
+            cout << "Invalid command!\n";
+        }
+    }
+
+    cout << "Final Status - Thrust: " << thrust << "% | Fuel: " << fuel << "% | Altitude: " << altitude << " km\n";
+    cout << "Mission Ended.\n";
+    return 0;
+}
